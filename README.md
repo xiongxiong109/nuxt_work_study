@@ -1,5 +1,5 @@
-# nuxt_works
-
+# nuxt_work_study
+nuxt_work_study
 > Nuxt.js project
 
 ## Build Setup
