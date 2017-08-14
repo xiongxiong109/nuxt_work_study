@@ -17,6 +17,7 @@
 				{name: 'keyword', content: 'nuxt work, vue, ssr'}
 			]
 		},
+		transition: 'slide',
 		computed: {
 			...mapState(['counter'])
 		},

@@ -1,13 +1,15 @@
 <template>
-	<div class="com-page">
-		<h4>list page</h4>
-		<p>msg: {{msg}}</p>
-		<input type="text" v-model="curItem">
-		<button @click="evt_addTodo">add todo</button>
-		<ul v-if="todo.list.length">
-			<li v-for="item in todo.list">{{item.content}}</li>
-		</ul>
-	</div>
+	<transition name="slide">
+		<div class="com-page">
+			<h4>list page</h4>
+			<p>msg: {{msg}}</p>
+			<input type="text" v-model="curItem">
+			<button @click="evt_addTodo">add todo</button>
+			<ul v-if="todo.list.length">
+				<li v-for="item in todo.list">{{item.content}}</li>
+			</ul>
+		</div>
+	</transition>
 </template>
 <script type="text/javascript">
 	import { mapActions, mapState } from 'vuex'
@@ -21,9 +23,8 @@
 		},
 		// 页面的middleware可以通过这种方式使用
 		middleware: ['fetch'],
-		// mounted() {
-		// 	console.log(this.$store)
-		// },
+		transition: 'slide',
+		// layout: 'scroll_page',
 		data: () => {
 			return {
 				msg: 'ok',
