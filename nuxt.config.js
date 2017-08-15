@@ -1,3 +1,4 @@
+const path = require('path')
 module.exports = {
   /*
   ** Headers of the page
@@ -16,7 +17,11 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#3B8070' },
+  loading: '~/components/loading.vue',
+  /*
+  ** Global css
+  */
+  css: ['~/assets/common.css'],
   /*
   ** Build configuration
   */
