@@ -1,6 +1,7 @@
 <template>
   <section class="container">
-    <router-link to="list">to list</router-link>
+    <router-link to="list?oid=123">to list</router-link>
+    <span>编程式导航</span>
     <p>
     	<span>{{counter}}</span>
     	<button @click="evt_addCounter">add</button>

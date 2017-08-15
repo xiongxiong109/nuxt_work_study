@@ -25,6 +25,11 @@
 		middleware: ['fetch'],
 		transition: 'slide',
 		// layout: 'scroll_page',
+		// 验证url的合法性, 这些注入方法都是获取的ctx上下文
+		validate({ query }) {
+			let { oid } = query;
+			return oid;
+		},
 		data: () => {
 			return {
 				msg: 'ok',
