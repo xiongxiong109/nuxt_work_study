@@ -1,17 +1,16 @@
 <template>
-	<transition name="slide">
-		<div class="com-page">
-			<h4>list page</h4>
-			<p>msg: {{msg}}</p>
-			<input type="text" v-model="curItem">
-			<button @click="evt_addTodo">add todo</button>
-			<ul v-if="todo.list.length">
-				<li v-for="item in todo.list">{{item.content}}</li>
-			</ul>
-			<p>oid: {{$route.query.oid}}</p>
-			<p>order: {{$route.params.order}}</p>
-		</div>
-	</transition>
+	<div class="container">
+		<h4>list page</h4>
+		<p>msg: {{msg}}</p>
+		<input type="text" v-model="curItem">
+		<button @click="evt_addTodo">add todo</button>
+		<router-link to="/">back to home</router-link>
+		<ul v-if="todo.list.length">
+			<li v-for="item in todo.list">{{item.content}}</li>
+		</ul>
+		<p>oid: {{$route.query.oid}}</p>
+		<p>order: {{$route.params.order}}</p>
+	</div>
 </template>
 <script type="text/javascript">
 	import { mapActions, mapState } from 'vuex'
@@ -25,12 +24,12 @@
 		},
 		// 页面的middleware可以通过这种方式使用
 		middleware: ['fetch'],
-		transition: 'slide',
-		// layout: 'scroll_page',
+		// 编程式过渡动效
+		transition: 'slide-left',
 		// 验证url的合法性, 这些注入方法都是获取的ctx上下文
 		validate({ query, params }) {
 			let { oid } = query;
-			console.log(params); // 路由页面动态生成, 通过编程式导航可以携带params参数过来
+			// console.log(params); // 路由页面动态生成, 通过编程式导航可以携带params参数过来
 			return oid || params.order;
 		},
 		data: () => {
