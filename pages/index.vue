@@ -12,6 +12,8 @@
     <p>
     	<router-link to="detail/asset">detail/asset</router-link>
     </p>
+    <router-link to="i18n/en/test">i18n en</router-link>
+    <router-link to="i18n/cn/test">i18n cn</router-link>
   </section>
 </template>
 <script type="text/javascript">

@@ -14,6 +14,7 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  plugins: ['~/plugins/i18n.js'],
   /*
   ** Customize the progress-bar color
   */
@@ -26,6 +27,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    vendor: ['axios', 'vue-i18n'],
     /*
     ** Run ESLINT on save
     */

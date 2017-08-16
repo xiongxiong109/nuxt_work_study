@@ -1,0 +1,9 @@
+{
+	"msg": {
+		"greet": "hello, world"
+	},
+	"words": {
+		"from": "from nuxt",
+		"say": "I love U"
+	}
+}
