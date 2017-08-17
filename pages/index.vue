@@ -14,6 +14,7 @@
     </p>
     <router-link to="i18n/en/test">i18n en</router-link>
     <router-link to="i18n/cn/test">i18n cn</router-link>
+    <router-link to="github/login">github open api</router-link>
   </section>
 </template>
 <script type="text/javascript">

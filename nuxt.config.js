@@ -14,20 +14,24 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-  plugins: ['~/plugins/i18n.js'],
+  plugins: ['~/plugins/i18n.js', '~/plugins/storage.js'],
   /*
   ** Customize the progress-bar color
   */
   loading: '~/components/loading.vue',
   /*
-  ** Global css
+  ** Global css, 由于服务端渲染的问题, 全局样式必须提前加载, 不能在vue文件中import
+  ** 否则会有闪动
   */
-  css: ['~/assets/common.css'],
+  css: [
+    '~/assets/common.css',
+    '~/node_modules/mint-ui/lib/style.css'
+  ],
   /*
   ** Build configuration
   */
   build: {
-    vendor: ['axios', 'vue-i18n'],
+    vendor: ['axios', 'vue-i18n', 'mint-ui'],
     /*
     ** Run ESLINT on save
     */
