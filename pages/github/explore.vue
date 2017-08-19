@@ -14,6 +14,16 @@
 			<div class="search-loading" v-show="isSearching" >
 				<spinner />
 			</div>
+			<div class="search-rst" v-show="rst.length">
+				<cell
+					v-for="item in rst"
+					:title="item.full_name"
+					:label="'star : ' + item.stargazers_count.toString()"
+					:is-link="true"
+					:to="item.html_url"
+					:key="item.id"
+					/>
+			</div>
 		</div>
 	</div>
 </template>
@@ -83,13 +93,16 @@
 				let rst;
 				this.isSearching = true;
 				this.isShowBtn = false;
+				this.rst = [];
 				try {
-					let rst = await fetch('/github/search', {queryStr: this.queryStr});
+					rst = await fetch('/github/search', {queryStr: this.queryStr});
 				} catch (err) {
 					rst = err;
 				}
+				if (!rst.err) {
+					this.rst = rst.items;
+				}
 				this.isSearching = false;
-				console.log(rst);
 			}
 		},
 		components: {
