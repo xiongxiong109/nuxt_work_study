@@ -22,3 +22,33 @@ a {
 	text-decoration: none;
 	display: flex;
 }
+
+.top-tab {
+	bottom: auto;
+	top: 0;
+	height: 46px;
+	background-image: none;
+}
+.mint-tabbar.top-tab > .mint-tab-item {
+	padding: 15px 0;
+	background-color: #fff;
+	color: rgba(0,0,0,.6);
+	position: relative;
+}
+.mint-tabbar.top-tab > .mint-tab-item.is-selected {
+	background-color: #fff;
+	color: #31c27c;
+}
+.mint-tabbar.top-tab > .mint-tab-item.is-selected:after {
+	content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #31c27c;
+}
+.mint-tabbar.top-tab .mint-tab-item-label {
+	font-size: 16px;
+}
