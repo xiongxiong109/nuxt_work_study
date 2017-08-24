@@ -14,7 +14,13 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-  plugins: ['~/plugins/i18n.js', '~/plugins/storage.js'],
+  plugins: [
+    '~/plugins/i18n.js',
+    {
+      src: '~/plugins/storage.js',
+      ssr: false
+    }
+  ],
   /*
   ** Customize the progress-bar color
   */
@@ -24,13 +30,18 @@ module.exports = {
   ** 否则会有闪动
   */
   css: [
-    '~/assets/common.css',
     '~/node_modules/mint-ui/lib/style.css'
   ],
   /*
   ** Build configuration
   */
   build: {
+    postcss: [
+      require('postcss-salad')({
+        browsers: ['IOS >= 7', 'Android >= 4.4', '>5%'],
+        features: {bem: true}
+      })
+    ],
     vendor: ['axios', 'vue-i18n', 'mint-ui'],
     /*
     ** Run ESLINT on save

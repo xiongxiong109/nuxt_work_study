@@ -13,8 +13,11 @@
     	<router-link to="detail/asset">detail/asset</router-link>
     </p>
     <router-link to="i18n/en/test">i18n en</router-link>
+    <br>
     <router-link to="i18n/cn/test">i18n cn</router-link>
+    <br>
     <router-link to="github/login">github open api</router-link>
+    <br>
     <router-link to="music">QQ_Music</router-link>
   </section>
 </template>
