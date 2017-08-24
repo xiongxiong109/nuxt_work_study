@@ -7,6 +7,7 @@
 		<tab-container v-model="curTab" class="top-tab-container">
 			<tab-container-item id="search">
 				<search-ipt></search-ipt>
+				<search-history></search-history>
 			</tab-container-item>
 			<tab-container-item id="range">
 				<h4>range</h4>
@@ -17,6 +18,7 @@
 <script type="text/javascript">
 	import { Tabbar, TabItem, TabContainer, TabContainerItem } from 'mint-ui'
 	import SearchIpt from '~/components/search_ipt'
+	import SearchHistory from '~/components/search_history'
 
 	export default {
 		head: {
@@ -33,7 +35,8 @@
 			TabItem,
 			TabContainer,
 			TabContainerItem,
-			[SearchIpt.name]: SearchIpt
+			[SearchIpt.name]: SearchIpt,
+			[SearchHistory.name]: SearchHistory
 		}
 	}
 </script>

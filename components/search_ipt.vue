@@ -4,6 +4,7 @@
 			<form @submit.prevent="evt_goSearch" class="search-form">
 				<span class="iconfont icon-search"></span>
 				<input type="text" @focus.stop="evt_show" v-model="queryStr" placeholder="搜索歌曲、歌单、专辑">
+				<span class="iconfont icon-close-fill" v-show="queryStr" @click="evt_clearQueryStr"></span>
 			</form>
 		</div>
 		<a v-show="showCancel" @click="evt_cancel" href="javascript:void(0);" class="search-cancel">取消</a>
@@ -27,6 +28,9 @@
 			},
 			evt_cancel() {
 				this.showCancel = false;
+			},
+			evt_clearQueryStr() {
+				this.queryStr = '';
 			}
 		}
 	}
