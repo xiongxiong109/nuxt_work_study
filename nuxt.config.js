@@ -30,6 +30,7 @@ module.exports = {
   ** 否则会有闪动
   */
   css: [
+    '~/assets/iconfont/iconfont.css',
     '~/node_modules/mint-ui/lib/style.css'
   ],
   /*

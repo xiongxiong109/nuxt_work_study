@@ -2,8 +2,8 @@
 	<div class="search-container">
 		<div class="search-wrap">
 			<form @submit.prevent="evt_goSearch" class="search-form">
-				<span>icon search</span>
-				<input type="text" @focus.stop="evt_show" placeholder="搜索歌曲、歌单、专辑">
+				<span class="iconfont icon-search"></span>
+				<input type="text" @focus.stop="evt_show" v-model="queryStr" placeholder="搜索歌曲、歌单、专辑">
 			</form>
 		</div>
 		<a v-show="showCancel" @click="evt_cancel" href="javascript:void(0);" class="search-cancel">取消</a>
@@ -13,7 +13,8 @@
 	export default {
 		data: () => {
 			return {
-				showCancel: false
+				showCancel: false,
+				queryStr: ''
 			}
 		},
 		name: 'search-ipt',
@@ -56,6 +57,10 @@
 				font-size: 14px;
 				flex: 1;
 				color: #555;
+			}
+			.iconfont {
+				font-size: 14px;
+				padding-right: 2px;
 			}
 		}
 		@descendent cancel {
