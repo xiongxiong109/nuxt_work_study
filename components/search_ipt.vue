@@ -21,7 +21,9 @@
 		name: 'search-ipt',
 		methods: {
 			evt_goSearch() {
-				console.log('x')
+				if (this.queryStr) {
+					this.$emit('fetch_query', this.queryStr);
+				}
 			},
 			evt_show() {
 				this.showCancel = true;
