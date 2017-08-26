@@ -6,7 +6,6 @@
 <style type="text/css">
 	/*global css*/
 	@reset-global mobile;
-	
 	html, body {
 		overflow-x: hidden;
 	}

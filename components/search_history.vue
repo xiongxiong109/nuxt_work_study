@@ -1,14 +1,9 @@
 <template>
 	<div class="history-wrap">
 		<ul class="history-list">
-			<li class="history-item">
+			<li class="history-item" v-for="item in list">
 				<span class="iconfont icon-time"></span>
-				<p class="history-str">消愁</p>
-				<span class="iconfont icon-close"></span>
-			</li>
-			<li class="history-item">
-				<span class="iconfont icon-time"></span>
-				<p class="history-str">消愁</p>
+				<p class="history-str">{{item.str}}</p>
 				<span class="iconfont icon-close"></span>
 			</li>
 		</ul>
@@ -19,7 +14,13 @@
 </template>
 <script type="text/javascript">
 	export default {
-		name: 'search-history'
+		name: 'search-history',
+		props: {
+			list: {
+				type: Array,
+				default: () => []
+			}
+		}
 	}
 </script>
 <style type="text/css">
