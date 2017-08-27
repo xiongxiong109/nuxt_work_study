@@ -3,7 +3,7 @@
 		<div class="search-wrap">
 			<form @submit.prevent="evt_goSearch" class="search-form">
 				<span class="iconfont icon-search"></span>
-				<input type="text" @focus.stop="evt_show" @blur="evt_blur" v-model="queryStr" placeholder="搜索歌曲、歌单、专辑">
+				<input type="text" @focus.stop="evt_show" v-model="queryStr" placeholder="搜索歌曲、歌单、专辑">
 				<span class="iconfont icon-close-fill" v-show="queryStr" @click="evt_clearQueryStr"></span>
 			</form>
 		</div>
@@ -18,6 +18,17 @@
 				queryStr: ''
 			}
 		},
+		props: {
+			value: {
+				type: String,
+				default: () => ''
+			}
+		},
+		watch: {
+			value(v) {
+				this.queryStr = v;
+			}
+		},
 		name: 'search-ipt',
 		methods: {
 			evt_goSearch() {
@@ -29,11 +40,10 @@
 				this.showCancel = true;
 				this.$emit('focus');
 			},
-			evt_blur() {
-				this.$emit('blur');
-			},
 			evt_cancel() {
+				this.evt_clearQueryStr();
 				this.showCancel = false;
+				this.$emit('cancel');
 			},
 			evt_clearQueryStr() {
 				this.queryStr = '';

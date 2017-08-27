@@ -7,11 +7,18 @@
 		<tab-container v-model="curTab" class="top-tab-container">
 			<tab-container-item id="search">
 				<search-ipt
+					v-model="curSearch"
 					@fetch_query="evt_fetch"
 					@focus="evt_focus"
-					@blur="evt_blur"
+					@cancel="evt_clearCurSearch"
 				></search-ipt>
-				<search-history v-show="isShowHistory" :list="historyList"></search-history>
+				<search-history
+					v-show="isShowHistory"
+					:list="historyList"
+					@search="evt_fetch"
+					@delete="evt_delete"
+					@clear-all="evt_clearStore"
+				></search-history>
 				<search-list :list="list"></search-list>
 				<inline-loading v-show="isFetching">正在搜索...</inline-loading>
 			</tab-container-item>
@@ -39,6 +46,7 @@
 				storeKey: 'SEARCH_STR',
 				curTab: 'search',
 				curPage: 1,
+				curSearch: '',
 				list: [],
 				historyList: [],
 				isFetching: false,
@@ -55,7 +63,11 @@
 			this.historyList = this.$ls.get(this.storeKey) || [];
 		},
 		methods: {
+			/*
+				isAppend, 用于分页
+			*/
 			async evt_fetch(str, isAppend = false) {
+				this.curSearch = str;
 				this.saveSearchHistory(str);
 				if (!this.isFetching) {
 					this.isFetching = true;
@@ -91,8 +103,15 @@
 			saveSearchHistory(str = '') {
 				let historyList = this.$ls.get(this.storeKey) || [];
 				let alreadySearched = historyList.filter(item => item.str == str);
+				/*
+					新的搜索词, 且未达到存储上限5
+				*/
 				if (!alreadySearched.length) {
-					historyList = [{str}, ...historyList];
+					if (historyList.length < 5) {
+						historyList = [{str}, ...historyList];
+					} else {
+						historyList = [{str}, ...historyList.slice(0, historyList.length - 1)];
+					}
 					this.$ls.set(this.storeKey, historyList);
 				}
 				this.historyList = historyList;
@@ -103,8 +122,20 @@
 			evt_focus() {
 				this.isFocused = true;
 			},
-			evt_blur() {
+			evt_clearCurSearch() {
 				this.isFocused = false;
+				this.list = [];
+			},
+			evt_delete(idx) {
+				this.historyList = [
+					...this.historyList.slice(0, idx),
+					...this.historyList.slice(idx + 1, this.historyList.length)
+				];
+				this.$ls.set(this.storeKey, this.historyList);
+			},
+			evt_clearStore() {
+				this.historyList = [];
+				this.$ls.set(this.storeKey, []);
 			}
 		},
 		components: {
