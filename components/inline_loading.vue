@@ -1,6 +1,6 @@
 <template>
 	<div class="il-loading-wrap">
-		<spinner type="fading-circle" color="#47c88a" class="spinner"></spinner>
+		<spinner type="fading-circle" class="spinner"></spinner>
 		<slot>{{loadingTxt}}</slot>
 	</div>
 </template>
@@ -27,6 +27,9 @@
 		padding: 10px 0;
 		.spinner {
 			padding-right: 10px;
+			.mint-spinner-fading-circle-circle:before {
+				background-color: #47c88a;
+			}
 		}
 	}
 </style>
