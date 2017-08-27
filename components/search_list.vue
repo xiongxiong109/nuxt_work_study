@@ -20,7 +20,7 @@
 		},
 		methods: {
 			evt_playSong(songmid) {
-				location.href = `http://localhost:8088/qq_music/song?id=${songmid}`
+				location.href = `http://local.qq.com:8088/qq_music/song?id=${songmid}`
 			}
 		}
 	}
