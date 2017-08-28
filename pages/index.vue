@@ -19,6 +19,7 @@
     <router-link to="github/login">github open api</router-link>
     <br>
     <router-link to="music">QQ_Music</router-link>
+    <p>消愁~</p>
   </section>
 </template>
 <script type="text/javascript">
