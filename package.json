@@ -17,7 +17,8 @@
     "mint-ui": "^2.2.9",
     "nuxt": "^1.0.0-rc3",
     "vue-i18n": "^7.1.1",
-    "vue-ls": "^2.3.0"
+    "vue-ls": "^2.3.0",
+    "vue-scroller": "^2.2.2"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",

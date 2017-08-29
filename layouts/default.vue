@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="com-page">
     <nuxt/>
   </div>
 </template>
@@ -8,6 +8,13 @@
 	@reset-global mobile;
 	html, body {
 		overflow-x: hidden;
+		height: 100%;
+	}
+	body > div {
+		height: 100%;
+	}
+	.com-page {
+		height: 100%;
 	}
 	.container {
 		transition: all .5s cubic-bezier(.55,0,.1,1);

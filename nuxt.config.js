@@ -19,6 +19,10 @@ module.exports = {
     {
       src: '~/plugins/storage.js',
       ssr: false
+    },
+    {
+      src: '~/plugins/scroller.js',
+      ssr: false
     }
   ],
   /*

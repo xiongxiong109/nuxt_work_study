@@ -19,7 +19,9 @@
 					@delete="evt_delete"
 					@clear-all="evt_clearStore"
 				></search-history>
-				<search-list :list="list"></search-list>
+				<search-list
+					:list="list"
+				></search-list>
 				<inline-loading v-show="isFetching">正在搜索...</inline-loading>
 			</tab-container-item>
 			<tab-container-item id="range">
@@ -150,3 +152,12 @@
 		}
 	}
 </script>
+<style type="text/css">
+	.music-page {
+		height: 100%;
+	}
+	.top-tab-container, 
+	.mint-tab-container-wrap {
+		height: 100%;
+	}
+</style>
