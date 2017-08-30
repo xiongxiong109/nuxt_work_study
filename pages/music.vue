@@ -31,6 +31,7 @@
 	</div>
 </template>
 <script type="text/javascript">
+	import { mapState } from 'vuex'
 	import { Tabbar, TabItem, TabContainer, TabContainerItem } from 'mint-ui'
 	import SearchIpt from '~/components/search_ipt'
 	import SearchHistory from '~/components/search_history'
@@ -59,9 +60,11 @@
 			isShowHistory() {
 				// input框聚焦, 且没有正在搜索, 且有历史搜索结果
 				return !this.isFetching && this.historyList.length && !this.list.length
-			}
+			},
+			...mapState(['music'])
 		},
 		mounted() {
+			console.log(this.$store);
 			this.historyList = this.$ls.get(this.storeKey) || [];
 		},
 		methods: {
