@@ -70,7 +70,7 @@
 			/*
 				isAppend, 用于分页
 			*/
-			async evt_fetch(str, isAppend = false) {
+			evt_fetch(str, isAppend = false) {
 				this['music/UPDATE_CUR'](str);
 				this.saveSearchHistory(str);
 				if (!this.isFetching) {
