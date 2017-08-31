@@ -7,7 +7,7 @@
 		<tab-container v-model="curTab" class="top-tab-container">
 			<tab-container-item id="search">
 				<search-ipt
-					v-model="curSearch"
+					v-model="music.curSearch"
 					@fetch_query="evt_fetch"
 					@focus="evt_focus"
 					@cancel="evt_clearCurSearch"
@@ -31,7 +31,7 @@
 	</div>
 </template>
 <script type="text/javascript">
-	import { mapState } from 'vuex'
+	import { mapState, mapActions } from 'vuex'
 	import { Tabbar, TabItem, TabContainer, TabContainerItem } from 'mint-ui'
 	import SearchIpt from '~/components/search_ipt'
 	import SearchHistory from '~/components/search_history'
@@ -48,8 +48,8 @@
 			return {
 				storeKey: 'SEARCH_STR',
 				curTab: 'search',
-				curPage: 1,
-				curSearch: '',
+				// curPage: 1,
+				// curSearch: '',
 				list: [],
 				historyList: [],
 				isFetching: false,
@@ -64,7 +64,6 @@
 			...mapState(['music'])
 		},
 		mounted() {
-			console.log(this.$store);
 			this.historyList = this.$ls.get(this.storeKey) || [];
 		},
 		methods: {
@@ -72,7 +71,7 @@
 				isAppend, 用于分页
 			*/
 			async evt_fetch(str, isAppend = false) {
-				this.curSearch = str;
+				this['music/UPDATE_CUR'](str);
 				this.saveSearchHistory(str);
 				if (!this.isFetching) {
 					this.isFetching = true;
@@ -84,7 +83,7 @@
 						method: 'post',
 						data: {
 							q: str,
-							p: this.curPage
+							p: this.music.curPage
 						},
 						timeout: 10000
 					})
@@ -141,7 +140,8 @@
 			evt_clearStore() {
 				this.historyList = [];
 				this.$ls.set(this.storeKey, []);
-			}
+			},
+			...mapActions(['music/UPDATE_CUR'])
 		},
 		components: {
 			Tabbar,

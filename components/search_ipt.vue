@@ -11,6 +11,8 @@
 	</div>
 </template>
 <script type="text/javascript">
+	import { mapActions } from 'vuex'
+
 	export default {
 		data: () => {
 			return {
@@ -26,6 +28,7 @@
 		},
 		watch: {
 			value(v) {
+				console.log(v);
 				this.queryStr = v;
 			}
 		},
@@ -47,7 +50,9 @@
 			},
 			evt_clearQueryStr() {
 				this.queryStr = '';
-			}
+				this['music/UPDATE_CUR']('');
+			},
+			...mapActions(['music/UPDATE_CUR'])
 		}
 	}
 </script>
