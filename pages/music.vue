@@ -20,12 +20,12 @@
 					@clear-all="evt_clearStore"
 				></search-history>
 				<search-list
-					:list="list"
+					:list="music.list"
 				></search-list>
-				<inline-loading v-show="isFetching">正在搜索...</inline-loading>
+				<inline-loading v-show="music.isFetching">正在搜索...</inline-loading>
 			</tab-container-item>
 			<tab-container-item id="range">
-				<h4>range</h4>
+				<h4>rank</h4>
 			</tab-container-item>
 		</tab-container>
 	</div>
@@ -50,16 +50,16 @@
 				curTab: 'search',
 				// curPage: 1,
 				// curSearch: '',
-				list: [],
+				// list: [],
 				historyList: [],
-				isFetching: false,
+				// isFetching: false,
 				isFocused: false,
 			}
 		},
 		computed: {
 			isShowHistory() {
 				// input框聚焦, 且没有正在搜索, 且有历史搜索结果
-				return !this.isFetching && this.historyList.length && !this.list.length
+				return !this.music.isFetching && this.historyList.length && !this.music.list.length
 			},
 			...mapState(['music'])
 		},
@@ -73,10 +73,10 @@
 			evt_fetch(str, isAppend = false) {
 				this['music/UPDATE_CUR'](str);
 				this.saveSearchHistory(str);
-				if (!this.isFetching) {
-					this.isFetching = true;
+				if (!this.music.isFetching) {
+					this['music/TOGGLE_FETCHING'](true);
 					if (!isAppend) {
-						this.list = [];
+						this['music/FILL_LIST']([]);
 					}
 					axios({
 						url: 'http://local.qq.com:8088/qq_music/search',
@@ -92,11 +92,11 @@
 						let { keyword, song } = rst.data;
 						// this.storekeyword // 本地存储
 						if (isAppend) {
-							this.list = [...this.list, ...song.list];
+							this['music/APPEND_LIST'](song.list);
 						} else {
-							this.list = [...song.list];
+							this['music/FILL_LIST'](song.list);
 						}
-						this.isFetching = false;
+						this['music/TOGGLE_FETCHING'](false);
 					})
 					.catch(err => {
 						console.log(err);
@@ -121,14 +121,14 @@
 				this.historyList = historyList;
 			},
 			resetState() {
-				this.isFetching = false;
+				this['music/TOGGLE_FETCHING'](false);
 			},
 			evt_focus() {
 				this.isFocused = true;
 			},
 			evt_clearCurSearch() {
 				this.isFocused = false;
-				this.list = [];
+				this['music/FILL_LIST']([]);
 			},
 			evt_delete(idx) {
 				this.historyList = [
@@ -141,7 +141,12 @@
 				this.historyList = [];
 				this.$ls.set(this.storeKey, []);
 			},
-			...mapActions(['music/UPDATE_CUR'])
+			...mapActions([
+				'music/UPDATE_CUR',
+				'music/TOGGLE_FETCHING',
+				'music/FILL_LIST',
+				'music/APPEND_LIST'
+			])
 		},
 		components: {
 			Tabbar,
