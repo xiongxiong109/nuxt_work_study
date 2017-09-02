@@ -6,6 +6,7 @@
 		</tabbar>
 		<tab-container v-model="curTab" class="top-tab-container">
 			<tab-container-item id="search">
+				{{music.curPage}}
 				<search-ipt
 					v-model="music.curSearch"
 					@fetch_query="evt_fetch"
@@ -77,6 +78,7 @@
 					this['music/TOGGLE_FETCHING'](true);
 					if (!isAppend) {
 						this['music/FILL_LIST']([]);
+						this['music/RESET_PAGE'](); // 分页重置
 					}
 					axios({
 						url: 'http://local.qq.com:8088/qq_music/search',
@@ -93,6 +95,7 @@
 						// this.storekeyword // 本地存储
 						if (isAppend) {
 							this['music/APPEND_LIST'](song.list);
+							this['music/ADD_PAGE'](); // 分页+1
 						} else {
 							this['music/FILL_LIST'](song.list);
 						}
@@ -145,7 +148,9 @@
 				'music/UPDATE_CUR',
 				'music/TOGGLE_FETCHING',
 				'music/FILL_LIST',
-				'music/APPEND_LIST'
+				'music/APPEND_LIST',
+				'music/ADD_PAGE',
+				'music/RESET_PAGE'
 			])
 		},
 		components: {

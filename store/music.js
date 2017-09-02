@@ -2,7 +2,8 @@ const UPDATE_CUR = 'UPDATE_CUR';
 const TOGGLE_FETCHING = 'TOGGLE_FETCHING';
 const FILL_LIST = 'FILL_LIST'; // 填充列表
 const APPEND_LIST = 'APPEND_LIST'; // 分页填充
-
+const ADD_PAGE = 'ADD_PAGE'; // 增加页数
+const RESET_PAGE = 'RESET_PAGE'; // 分页重置
 export const state = () => {
 	return {
 		curPage: 1,
@@ -25,6 +26,12 @@ export const mutations = {
 	},
 	[APPEND_LIST](state, list = []) {
 		state.list = [...state.list, ...list];
+	},
+	[ADD_PAGE](state) {
+		state.curPage++;
+	},
+	[RESET_PAGE](state) {
+		state.curPage = 1;
 	}
 }
 
@@ -40,5 +47,11 @@ export const actions = {
 	},
 	[APPEND_LIST](state, list) {
 		state.commit(APPEND_LIST, list);
+	},
+	[ADD_PAGE](state) {
+		state.commit(ADD_PAGE);
+	},
+	[RESET_PAGE](state) {
+		state.commit(RESET_PAGE);
 	}
 }
