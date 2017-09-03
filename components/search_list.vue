@@ -1,13 +1,13 @@
 <template>
-	<div class="search-list" v-show="list.length">
+	<div class="search-list" v-show="music.list.length">
 		<scroller
 			v-if="isMounted"
 			ref="scroller"
-			:min-content-height="minHeight"
 			:on-infinite="evt_loadmore"
+			loading-layer-color="#ccc"
 		>
 			<ul class="search-group">
-				<li class="search-item" v-for="item in list" @click="evt_playSong(item.songmid)">
+				<li class="search-item" v-for="item in music.list" @click="evt_playSong(item.songmid)">
 					<i class="icon"></i>
 					<h6>{{item.songname}}</h6>
 					<p><span v-for="singer in item.singer">{{singer.name}}</span></p>
@@ -17,14 +17,10 @@
 	</div>
 </template>
 <script type="text/javascript">
+	import axios from 'axios'
+	import { mapState, mapActions } from 'vuex'
 	export default {
 		name: 'search-list',
-		props: {
-			list: {
-				type: Array,
-				default: () => []
-			}
-		},
 		data: () => {
 			return {
 				/*
@@ -37,15 +33,17 @@
 					所以在这里设置了一个isMounted, 在组件走到生命周期mounted的阶段
 					也就是挂载到了浏览器dom的阶段的时候, 再将scroller渲染出来
 				*/
-				isMounted: false,
-				minHeight: 400
+				isMounted: false
 			}
+		},
+		computed: {
+			...mapState(['music'])
 		},
 		watch: {
 			list(v) {
 				if (this.$refs.scroller) {
 					this.$refs.scroller.resize();
-					this.$refs.scroller.finishInfinite();	
+					this.$refs.scroller.finishInfinite(false);	
 				}
 			}
 		},
@@ -53,12 +51,48 @@
 			this.isMounted = true;
 		},
 		methods: {
+			fetch() {
+				axios({
+					url: 'http://local.qq.com:8088/qq_music/search',
+					method: 'post',
+					data: {
+						q: this.music.curSearch,
+						p: this.music.curPage + 1
+					},
+					timeout: 10000
+				})
+				.then(res => res.data)
+				.then(rst => {
+					let { list } = rst.data.song;
+					if (list.length) {
+						this['music/ADD_PAGE']();
+						this['music/APPEND_LIST'](list);
+						this.$refs.scroller.finishInfinite(false);
+					} else { // 没有更多了
+						// this['music/RESET_PAGE']();
+						this.$refs.scroller.finishInfinite(true);
+					}
+				})
+				.catch(err => console.log(err))
+			},
 			evt_playSong(songmid) {
 				location.href = `http://local.qq.com:8088/qq_music/song?id=${songmid}`
 			},
 			evt_loadmore() {
-				this.$emit('loadmore');
-			}
+				let { length } = this.music.list;
+				if (length) {
+					this.fetch();
+				} else {
+					let { scroller } = this.$refs;
+					this.$refs.scroller.resize();
+					scroller.finishInfinite(false);
+				}
+			},
+			...mapActions([
+				'music/APPEND_LIST',
+				'music/ADD_PAGE',
+				'music/RESET_PAGE'
+			])
 		}
 	}
 </script>
@@ -66,7 +100,7 @@
 	@component search {
 		@descendent list {
 			position: relative;
-			height: 90%;
+			height: 300px;
 			overflow: hidden;
 		}
 		@descendent item {

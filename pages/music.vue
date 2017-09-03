@@ -6,7 +6,6 @@
 		</tabbar>
 		<tab-container v-model="curTab" class="top-tab-container">
 			<tab-container-item id="search">
-				{{music.curPage}}
 				<search-ipt
 					v-model="music.curSearch"
 					@fetch_query="evt_fetch"
@@ -20,9 +19,7 @@
 					@delete="evt_delete"
 					@clear-all="evt_clearStore"
 				></search-history>
-				<search-list
-					:list="music.list"
-				></search-list>
+				<search-list></search-list>
 				<inline-loading v-show="music.isFetching">正在搜索...</inline-loading>
 			</tab-container-item>
 			<tab-container-item id="range">
