@@ -100,7 +100,7 @@
 	@component search {
 		@descendent list {
 			position: relative;
-			height: 300px;
+			height: 85%;
 			overflow: hidden;
 		}
 		@descendent item {

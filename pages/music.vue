@@ -23,7 +23,7 @@
 				<inline-loading v-show="music.isFetching">正在搜索...</inline-loading>
 			</tab-container-item>
 			<tab-container-item id="range">
-				<h4>rank</h4>
+				<rank-list></rank-list>
 			</tab-container-item>
 		</tab-container>
 	</div>
@@ -35,6 +35,7 @@
 	import SearchHistory from '~/components/search_history'
 	import SearchList from '~/components/search_list'
 	import InlineLoading from '~/components/inline_loading'
+	import RankList from '~/components/rank_list'
 	import axios from 'axios'
 
 	export default {
@@ -158,7 +159,8 @@
 			[InlineLoading.name]: InlineLoading,
 			[SearchIpt.name]: SearchIpt,
 			[SearchHistory.name]: SearchHistory,
-			[SearchList.name]: SearchList
+			[SearchList.name]: SearchList,
+			[RankList.name]: RankList
 		}
 	}
 </script>
