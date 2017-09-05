@@ -165,6 +165,7 @@
 	}
 </script>
 <style type="text/css">
+	body {background-color: #f4f4f4;}
 	.music-page {
 		height: 100%;
 	}

@@ -5,11 +5,10 @@
 */
 import axios from 'axios'
 
-const baseUrl = 'http://localhost:8088/nuxt/mock';
-
 export const fetch = async (
 		path = '/',
-		params = {} 
+		params = {},
+		baseUrl = 'http://localhost:8088/nuxt/mock'
 	) => new Promise((resolve, reject) => {
 		axios({
 			url: `${baseUrl}${path}`,

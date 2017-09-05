@@ -37,6 +37,7 @@
 <style type="text/css">
 	@component history {
 		@descendent item {
+			background-color: #fff;
 			border-top: 1px solid #ededed;
 			padding: 0 10px;
 			height: 44px;
