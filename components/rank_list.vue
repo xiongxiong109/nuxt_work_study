@@ -54,10 +54,6 @@
 					.then(rst => resolve({list: rst.data.topList}))
 					.catch(err => reject(err))
 				});
-				// let rst = await axios.get('http://localhost:8088/qq_music/rank')
-				// 								.then(res => res.data)
-				// 								.then(rst => this.list = rst.data.topList || []);
-				// console.log(rst);
 			},
 			async evt_pull_refresh() {
 				let fetchData = await this.fetch();
