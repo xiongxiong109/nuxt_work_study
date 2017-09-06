@@ -37,19 +37,34 @@
 				list: {}
 			}
 		},
-		created() {
-			axios.get('http://localhost:8088/qq_music/rank')
-			.then(res => res.data)
-			.then(rst => this.list = rst.data.topList || []);
+		async created() {
+			let fetchData = await this.fetch();
+			if (fetchData && fetchData.list) {
+				this.list = fetchData.list || [];
+			}
 		},
 		mounted() {
 			this.isMounted = true;
 		},
 		methods: {
-			evt_pull_refresh() {
-				setTimeout(() => {
-					this.$refs.rank_scroller.finishPullToRefresh();
-				}, 1e3);
+			async fetch() {
+				return new Promise((resolve, reject) => {
+					axios.get('http://localhost:8088/qq_music/rank')
+					.then(res => res.data)
+					.then(rst => resolve({list: rst.data.topList}))
+					.catch(err => reject(err))
+				});
+				// let rst = await axios.get('http://localhost:8088/qq_music/rank')
+				// 								.then(res => res.data)
+				// 								.then(rst => this.list = rst.data.topList || []);
+				// console.log(rst);
+			},
+			async evt_pull_refresh() {
+				let fetchData = await this.fetch();
+				if (fetchData && fetchData.list) {
+					this.list = fetchData.list || [];
+				}
+				this.$refs.rank_scroller.finishPullToRefresh();
 			}
 		}
 	}
