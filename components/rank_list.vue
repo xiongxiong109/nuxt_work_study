@@ -14,12 +14,13 @@
 					<div class="info">
 						<h3 class="title">{{item.topTitle}}</h3>
 						<div class="info-rank">
-							<p v-for="song in item.songList">
-								<span>{{song.singername}}</span>
-								<span>{{song.songname}}</span>
+							<p v-for="song, idx in item.songList">
+								<span>{{idx + 1}}. {{song.songname}}</span>
+								<span class="singer">{{song.singername}}</span>
 							</p>
 						</div>
 					</div>
+					<i class="rank-icon iconfont icon-ar"></i>
 				</li>
 			</ul>
 		</scroller>
@@ -60,13 +61,14 @@
 			height: 100%;
 		}
 		@descendent list {
-			padding: 10px 15px 56px;
+			padding: 10px 15px 0;
 			background-color: #f4f4f4;
 			li {
 				display: flex;
 				align-items: center;
 				background-color: #fff;
 				border-radius: 4px;
+				height: 100px;
 				& + li {
 					margin-top: 10px;
 				}
@@ -76,15 +78,38 @@
 						size: 100%;
 					}
 				}
+				.title {
+					font-size: 16px;
+				}
 				.info {
 					flex:1;
-					padding: 0 20px 0 10px;
+					display: flex;
+					flex-direction: column;
+					justify-content: space-around;
+					padding: 0 5px 0 10px;
+					height: 100%;
 					overflow: hidden;
 					p {
 						@utils-ellipsis;
 					}
 				}
+				.singer {
+					color: rgba(0,0,0,.5);
+					&:before {
+						content: '-';
+						padding: 0 5px;
+					}
+				}
+				.info-rank {
+					padding-bottom: 10px;
+				}
 			}
+		}
+		@descendent icon {
+			display: block;
+			font-size: 14px;
+			color: #ccc;
+			padding-right: 5px;
 		}
 	}
 </style>
