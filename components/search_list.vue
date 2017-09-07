@@ -108,6 +108,7 @@
 			padding-left: 50px;
 			position: relative;
 			border-top: 1px solid #ededed;
+			background-color: #fff;
 			.icon {
 				position: absolute;
 				left: 25px;
