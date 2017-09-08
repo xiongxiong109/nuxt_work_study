@@ -7,7 +7,7 @@
 			:on-refresh="evt_pull_refresh"
 		>
 			<ul class="rank-list">
-				<li v-for="item in list">
+				<li v-for="item in list" @click="$router.push(`/rank/${item.id}`)">
 					<div class="avatar">
 						<img :src="item.picUrl">
 					</div>
