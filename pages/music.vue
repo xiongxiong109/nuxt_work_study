@@ -46,7 +46,7 @@
 		data: () => {
 			return {
 				storeKey: 'SEARCH_STR',
-				curTab: 'search',
+				// curTab: 'search',
 				// curPage: 1,
 				// curSearch: '',
 				// list: [],
@@ -56,6 +56,14 @@
 			}
 		},
 		computed: {
+			curTab: {
+				get() {
+					return this.music.curTab
+				},
+				set(v) {
+					this['music/CHANGE_TAB'](v);
+				}
+			},
 			isShowHistory() {
 				// input框聚焦, 且没有正在搜索, 且有历史搜索结果
 				return !this.music.isFetching && this.historyList.length && !this.music.list.length
@@ -148,7 +156,8 @@
 				'music/FILL_LIST',
 				'music/APPEND_LIST',
 				'music/ADD_PAGE',
-				'music/RESET_PAGE'
+				'music/RESET_PAGE',
+				'music/CHANGE_TAB'
 			])
 		},
 		components: {

@@ -4,9 +4,11 @@ const FILL_LIST = 'FILL_LIST'; // 填充列表
 const APPEND_LIST = 'APPEND_LIST'; // 分页填充
 const ADD_PAGE = 'ADD_PAGE'; // 增加页数
 const RESET_PAGE = 'RESET_PAGE'; // 分页重置
+const CHANGE_TAB = 'CHANGE_TAB'; // 切换tab
 export const state = () => {
 	return {
 		curPage: 1,
+		curTab: 'search',
 		curSearch: '',
 		list: [],
 		historyList: [],
@@ -32,6 +34,9 @@ export const mutations = {
 	},
 	[RESET_PAGE](state) {
 		state.curPage = 1;
+	},
+	[CHANGE_TAB](state, tab) {
+		state.curTab = tab;
 	}
 }
 
@@ -53,5 +58,8 @@ export const actions = {
 	},
 	[RESET_PAGE](state) {
 		state.commit(RESET_PAGE);
+	},
+	[CHANGE_TAB](state, tab) {
+		state.commit(CHANGE_TAB, tab);
 	}
 }
